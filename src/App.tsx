@@ -22,11 +22,12 @@ function App() {
     <div className="bg-gray-400 h-screen flex flex-col w-screen justify-center items-center">
       {grid.reverse().map((row, y) => {
         return (
-          <div className="flex">
+          <div className="flex" key={"row-" + y}>
             {row.map((box, x) => {
               const color = box ? "bg-green-900" : "bg-gray-900";
               return (
                 <div
+                  key={x}
                   onClick={() => {
                     const n = place(robot, grid, x, y, "NORTH");
                     setGrid(n.reverse());
