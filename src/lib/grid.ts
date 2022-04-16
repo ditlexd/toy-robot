@@ -40,3 +40,59 @@ export function getRobot(grid: Grid): Robot | null {
   }
   return null;
 }
+
+export function move(grid: Grid): Grid {
+  const robot = getRobot(grid);
+  if (robot === null) {
+    return grid;
+  }
+
+  switch (robot.direction) {
+    case "NORTH":
+      return moveNorth(grid, robot);
+    case "SOUTH":
+      return moveSouth(grid, robot);
+    case "WEST":
+      return moveWest(grid, robot);
+    case "EAST":
+      return moveEast(grid, robot);
+  }
+
+  return grid;
+}
+
+function moveEast(grid: Grid, robot: Robot) {
+  if (!robot.position || !robot.direction) {
+    return grid;
+  }
+
+  const { x, y } = robot?.position;
+  return place(robot, grid, x + 1, y, robot.direction);
+}
+
+function moveWest(grid: Grid, robot: Robot) {
+  if (!robot.position || !robot.direction) {
+    return grid;
+  }
+
+  const { x, y } = robot?.position;
+  return place(robot, grid, x - 1, y, robot.direction);
+}
+
+function moveSouth(grid: Grid, robot: Robot) {
+  if (!robot.position || !robot.direction) {
+    return grid;
+  }
+
+  const { x, y } = robot?.position;
+  return place(robot, grid, x, y - 1, robot.direction);
+}
+
+function moveNorth(grid: Grid, robot: Robot): Grid {
+  if (!robot.position || !robot.direction) {
+    return grid;
+  }
+
+  const { x, y } = robot?.position;
+  return place(robot, grid, x, y + 1, robot.direction);
+}
