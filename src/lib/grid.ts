@@ -28,3 +28,15 @@ export function place(
 
   return newGrid;
 }
+
+export function getRobot(grid: Grid): Robot | null {
+  for (var i = 0; i < grid.length; i++) {
+    var row = grid[i];
+    for (var j = 0; j < row.length; j++) {
+      if (grid[i][j] !== null) {
+        return grid[i][j];
+      }
+    }
+  }
+  return null;
+}

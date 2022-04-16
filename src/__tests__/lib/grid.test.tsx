@@ -1,5 +1,5 @@
 import { Grid, Robot } from "../../../@types/simulator";
-import { place } from "../../lib/grid";
+import { getRobot, place } from "../../lib/grid";
 
 function getCleanGrid(): Grid {
   return [
@@ -61,5 +61,33 @@ describe("PLACE on grid", () => {
 
     const outOfBounds = place(robot, newGrid, 5, 2, "NORTH");
     expect(outOfBounds[2][2]).not.toBeNull();
+  });
+
+  test("Should update robots position when placed", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const newGrid = place(robot, initialGrid, 2, 2, "NORTH");
+
+    expect(newGrid[2][2]).not.toBeNull();
+  });
+});
+
+describe("Get Robot", () => {
+  test("should return robot from grid", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const newGrid = place(robot, initialGrid, 2, 2, "NORTH");
+
+    const foundRobot = getRobot(newGrid);
+    expect(foundRobot).not.toBeNull();
+    expect(foundRobot!.position).toStrictEqual({ x: 2, y: 2 });
+    expect(foundRobot!.direction).toBe("NORTH");
+  });
+
+  test("Should return null if robot is not placed", () => {
+    const foundRobot = getRobot(getCleanGrid());
+    expect(foundRobot).toBeNull();
   });
 });
