@@ -11,19 +11,20 @@ function getCleanGrid(): Grid {
   ];
 }
 
+const initialRobot: Robot = { direction: null, position: null };
+
 describe("PLACE on grid", () => {
   test("Should place robot on correct grid position", () => {
     const initialGrid = getCleanGrid();
-    const robot: Robot = { direction: "NORTH" };
 
-    const newGrid = place(robot, initialGrid, 2, 2, "NORTH");
+    const newGrid = place(initialRobot, initialGrid, 2, 2, "NORTH");
 
     expect(newGrid[2][2]).not.toBeNull();
   });
 
   test("Should move robot to new position", () => {
     const initialGrid = getCleanGrid();
-    const robot: Robot = { direction: "NORTH" };
+    const robot = { ...initialRobot };
 
     const newGrid = place(robot, initialGrid, 2, 2, "NORTH");
     expect(newGrid[2][2]).not.toBeNull();
@@ -35,7 +36,7 @@ describe("PLACE on grid", () => {
 
   test("Should give robot correct direciton", () => {
     const initialGrid = getCleanGrid();
-    const robot: Robot = { direction: "NORTH" };
+    const robot = { ...initialRobot };
 
     const north = place(robot, initialGrid, 2, 2, "NORTH");
     expect(north[2][2]?.direction).toMatch("NORTH");
@@ -52,7 +53,7 @@ describe("PLACE on grid", () => {
 
   test("Should not do anything when trying to place out of bounds", () => {
     const initialGrid = getCleanGrid();
-    const robot: Robot = { direction: "NORTH" };
+    const robot = { ...initialRobot };
 
     const newGrid = place(robot, initialGrid, 2, 2, "NORTH");
 

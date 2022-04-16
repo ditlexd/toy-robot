@@ -22,6 +22,7 @@ export function place(
   }
 
   robot.direction = direction;
+  robot.position = { x, y };
   const newGrid = getCleanGrid();
   newGrid[y][x] = robot;
 

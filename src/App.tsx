@@ -3,7 +3,8 @@ import { Robot } from "../@types/simulator";
 import { place } from "./lib/grid";
 
 const robot: Robot = {
-  direction: "NORTH",
+  direction: null,
+  position: null,
 };
 
 const initialGrid = [
