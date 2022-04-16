@@ -1,24 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Robot } from "../@types/simulator";
+import { place } from "./lib/grid";
+
+const robot: Robot = {
+  direction: "NORTH",
+};
+
+const initialGrid = [
+  [null, null, null, null, null],
+  [null, null, null, null, null],
+  [null, null, null, null, null],
+  [null, null, null, null, null],
+  [null, null, null, null, null],
+];
 
 function App() {
+  const [grid, setGrid] = useState<Array<Array<Robot | null>>>(initialGrid);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="bg-gray-400 h-screen flex flex-col w-screen justify-center items-center">
+      {grid.reverse().map((row, y) => {
+        return (
+          <div className="flex">
+            {row.map((box, x) => {
+              const color = box ? "bg-green-900" : "bg-gray-900";
+              return (
+                <div
+                  onClick={() => {
+                    const n = place(robot, grid, x, y, "NORTH");
+                    setGrid(n.reverse());
+                  }}
+                  className={`${color} h-14 w-14 border-black border-2`}
+                />
+              );
+            })}
+          </div>
+        );
+      })}
     </div>
   );
 }

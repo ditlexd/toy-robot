@@ -1,5 +1,5 @@
-import { Grid, Robot } from "../../@types/simulator";
-import { place } from "../lib/grid";
+import { Grid, Robot } from "../../../@types/simulator";
+import { place } from "../../lib/grid";
 
 function getCleanGrid(): Grid {
   return [
