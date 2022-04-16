@@ -1,5 +1,5 @@
 import { Grid, Robot } from "../../../@types/simulator";
-import { getRobot, place } from "../../lib/grid";
+import { getRobot, move, place } from "../../lib/grid";
 
 function getCleanGrid(): Grid {
   return [
@@ -89,5 +89,55 @@ describe("Get Robot", () => {
   test("Should return null if robot is not placed", () => {
     const foundRobot = getRobot(getCleanGrid());
     expect(foundRobot).toBeNull();
+  });
+});
+
+describe("MOVE", () => {
+  test("Should move one step NORTH", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const placed = place(robot, initialGrid, 2, 2, "NORTH");
+    const moved = move(placed);
+
+    const movedRobot = getRobot(moved);
+
+    expect(movedRobot?.position).toStrictEqual({ x: 2, y: 3 });
+  });
+
+  test("Should move one step SOUTH", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const placed = place(robot, initialGrid, 2, 2, "SOUTH");
+    const moved = move(placed);
+
+    const movedRobot = getRobot(moved);
+
+    expect(movedRobot?.position).toStrictEqual({ x: 2, y: 1 });
+  });
+
+  test("Should move one step WEST", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const placed = place(robot, initialGrid, 2, 2, "WEST");
+    const moved = move(placed);
+
+    const movedRobot = getRobot(moved);
+
+    expect(movedRobot?.position).toStrictEqual({ x: 1, y: 2 });
+  });
+
+  test("Should move one step EAST", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const placed = place(robot, initialGrid, 2, 2, "EAST");
+    const moved = move(placed);
+
+    const movedRobot = getRobot(moved);
+
+    expect(movedRobot?.position).toStrictEqual({ x: 3, y: 2 });
   });
 });
