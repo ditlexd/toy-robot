@@ -1,5 +1,5 @@
 import { Grid, Robot } from "../../../@types/simulator";
-import { getRobot, move, place } from "../../lib/grid";
+import { getRobot, left, move, place, right } from "../../lib/grid";
 
 function getCleanGrid(): Grid {
   return [
@@ -139,5 +139,145 @@ describe("MOVE", () => {
     const movedRobot = getRobot(moved);
 
     expect(movedRobot?.position).toStrictEqual({ x: 3, y: 2 });
+  });
+
+  test("Should not move SOUTH out of bounds", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const placed = place(robot, initialGrid, 0, 0, "SOUTH");
+    const moved = move(placed);
+
+    const movedRobot = getRobot(moved);
+
+    expect(movedRobot?.position).toStrictEqual({ x: 0, y: 0 });
+  });
+
+  test("Should not move WEST out of bounds", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const placed = place(robot, initialGrid, 0, 0, "WEST");
+    const moved = move(placed);
+
+    const movedRobot = getRobot(moved);
+
+    expect(movedRobot?.position).toStrictEqual({ x: 0, y: 0 });
+  });
+
+  test("Should not move NORTH out of bounds", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const placed = place(robot, initialGrid, 0, 4, "NORTH");
+    const moved = move(placed);
+
+    const movedRobot = getRobot(moved);
+
+    expect(movedRobot?.position).toStrictEqual({ x: 0, y: 4 });
+  });
+
+  test("Should not move EAST out of bounds", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const placed = place(robot, initialGrid, 4, 0, "EAST");
+    const moved = move(placed);
+
+    const movedRobot = getRobot(moved);
+
+    expect(movedRobot?.position).toStrictEqual({ x: 4, y: 0 });
+  });
+});
+
+describe("LEFT", () => {
+  test("Should turn WEST from NORTH", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const placed = place(robot, initialGrid, 0, 0, "NORTH");
+    const turned = left(placed);
+
+    const turnedRobot = getRobot(turned);
+    expect(turnedRobot!.direction).toMatch("WEST");
+  });
+
+  test("Should turn SOUTH from WEST", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const placed = place(robot, initialGrid, 0, 0, "WEST");
+    const turned = left(placed);
+
+    const turnedRobot = getRobot(turned);
+    expect(turnedRobot!.direction).toMatch("SOUTH");
+  });
+
+  test("Should turn EAST from SOUTH", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const placed = place(robot, initialGrid, 0, 0, "SOUTH");
+    const turned = left(placed);
+
+    const turnedRobot = getRobot(turned);
+    expect(turnedRobot!.direction).toMatch("EAST");
+  });
+
+  test("Should turn NORTH from EAST", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const placed = place(robot, initialGrid, 0, 0, "EAST");
+    const turned = left(placed);
+
+    const turnedRobot = getRobot(turned);
+    expect(turnedRobot!.direction).toMatch("NORTH");
+  });
+});
+
+describe("RIGHT", () => {
+  test("Should turn EAST from NORTH", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const placed = place(robot, initialGrid, 0, 0, "NORTH");
+    const turned = right(placed);
+
+    const turnedRobot = getRobot(turned);
+    expect(turnedRobot!.direction).toMatch("EAST");
+  });
+
+  test("Should turn SOUTH from EAST", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const placed = place(robot, initialGrid, 0, 0, "EAST");
+    const turned = right(placed);
+
+    const turnedRobot = getRobot(turned);
+    expect(turnedRobot!.direction).toMatch("SOUTH");
+  });
+
+  test("Should turn WEST from SOUTH", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const placed = place(robot, initialGrid, 0, 0, "SOUTH");
+    const turned = right(placed);
+
+    const turnedRobot = getRobot(turned);
+    expect(turnedRobot!.direction).toMatch("WEST");
+  });
+
+  test("Should turn NORTH from WEST", () => {
+    const initialGrid = getCleanGrid();
+    const robot = { ...initialRobot };
+
+    const placed = place(robot, initialGrid, 0, 0, "WEST");
+    const turned = right(placed);
+
+    const turnedRobot = getRobot(turned);
+    expect(turnedRobot!.direction).toMatch("NORTH");
   });
 });
