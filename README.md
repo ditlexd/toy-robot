@@ -1,3 +1,15 @@
+## To play the game
+
+```bash
+npm start
+```
+
+[http://localhost:3000](http://localhost:3000)
+
+Then simply start writing valid commands into the input field and click submit.
+
+In order to run commands from `commands.txt`, simply press the `execute commands` button.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
