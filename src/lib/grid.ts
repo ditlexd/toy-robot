@@ -17,7 +17,7 @@ export function place(
   y: number,
   direction: Direction
 ): Grid {
-  if (x >= grid[0].length || y >= grid.length) {
+  if (x >= grid[0].length || y >= grid.length || x < 0 || y < 0) {
     return grid;
   }
 
@@ -95,4 +95,39 @@ function moveNorth(grid: Grid, robot: Robot): Grid {
 
   const { x, y } = robot?.position;
   return place(robot, grid, x, y + 1, robot.direction);
+}
+
+export function left(grid: Grid) {
+  const robot = getRobot(grid);
+  if (!robot || !robot.position || !robot.direction) {
+    return grid;
+  }
+
+  switch (robot.direction) {
+    case "NORTH":
+      robot.direction = "WEST";
+      break;
+    case "WEST":
+      robot.direction = "SOUTH";
+      break;
+    case "SOUTH":
+      robot.direction = "EAST";
+      break;
+    case "EAST":
+      robot.direction = "NORTH";
+      break;
+  }
+  return place(
+    robot,
+    grid,
+    robot.position.x,
+    robot.position.y,
+    robot.direction
+  );
+}
+
+export function right(grid: Grid) {
+  const one = left(grid);
+  const two = left(one);
+  return left(two);
 }
