@@ -1,6 +1,6 @@
 import { Grid, Robot } from "../../../@types/simulator";
 import { getRobot, left, move, place, right } from "../../lib/grid";
-import { parseInput } from "../../lib/parse-input";
+import { parseAndExecuteInput } from "../../lib/parse-and-execute-input";
 import exp from "constants";
 
 function getCleanGrid(): Grid {
@@ -17,7 +17,7 @@ const initialRobot: Robot = { direction: null, position: null };
 describe("Place robot on correct spot using PLACE command", () => {
   test("Place on correct position", () => {
     const grid = getCleanGrid();
-    const placed = parseInput("PLACE 2,2,NORTH", grid);
+    const placed = parseAndExecuteInput("PLACE 2,2,NORTH", grid);
     const robot = getRobot(placed);
 
     expect(robot).not.toBeNull();

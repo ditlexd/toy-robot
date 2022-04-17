@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Robot } from "../@types/simulator";
-import { parseInput } from "./lib/parse-input";
+import { parseAndExecuteInput } from "./lib/parse-and-execute-input";
 import { getRobot } from "./lib/grid";
 
 const initialGrid = [
@@ -29,9 +29,10 @@ function App() {
       );
       return;
     }
-    const newGrid = parseInput(input, grid);
+    const newGrid = parseAndExecuteInput(input, grid);
     setGrid(newGrid);
     setRobotInfo("");
+    setInput("");
   }
 
   const reversedGrid = grid.slice(0).reverse();
@@ -40,14 +41,19 @@ function App() {
     <div className="bg-gray-400 h-screen flex flex-col w-screen justify-center items-center">
       <form onSubmit={onSubmit}>
         <label>
-          Name:
+          Command:
           <input
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => setInput(e.target.value.toUpperCase())}
             type="text"
             name="name"
+            value={input}
           />
         </label>
-        <input type="submit" value="Submit" />
+        <input
+          type="submit"
+          value="Submit"
+          className="border-gray-700 border-2 mx-2"
+        />
       </form>
       {reversedGrid.map((row, y) => {
         return (

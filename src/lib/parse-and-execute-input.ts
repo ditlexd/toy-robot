@@ -1,10 +1,9 @@
 import { Grid, Robot } from "../../@types/simulator";
 import { left, move, place, right } from "./grid";
 
-export function parseInput(input: string, grid: Grid): Grid {
+export function parseAndExecuteInput(input: string, grid: Grid): Grid {
   const [cmd, ...rest] = input.split(" ");
 
-  console.log(cmd);
   switch (cmd) {
     case "PLACE":
       return executePlace(rest.join(), grid);
@@ -23,8 +22,6 @@ function executePlace(args: string, grid: Grid) {
   const arr = args.split(",").filter((x) => x !== "");
   const [x, y, direction] = arr;
 
-  console.log(arr);
-  console.log(x, y, direction);
   if (
     direction !== "NORTH" &&
     direction !== "EAST" &&
